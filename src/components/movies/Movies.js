@@ -6,8 +6,8 @@ import { Container } from "@material-ui/core";
 export default function Movies() {
   return (
     <>
-      <Search />
       <Container>
+        <Search />
         <MoviesList />
       </Container>
     </>

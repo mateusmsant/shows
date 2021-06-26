@@ -1,7 +1,6 @@
 import React from "react";
-import { useMovie } from "../../context/movieContext";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { useMovie } from "../../context/movieContext";
 
 export default function MoviesList() {
   const { renderMovies } = useMovie();

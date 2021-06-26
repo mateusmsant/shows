@@ -1,13 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
+import MovieItem from "../components/movies/MovieItem";
 import { useApi } from "../context/apiContext";
-import Grid from "@material-ui/core/Grid";
+import Heart from "react-animated-heart";
 
 const MovieContext = createContext();
 
 export default function MovieProvider({ children }) {
   const [movies, setMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-
+  const [favorites, setFavorites] = useState([]);
   const { tmdbApi } = useApi();
 
   const searchMovie = async (input) => {
@@ -19,13 +20,25 @@ export default function MovieProvider({ children }) {
     movies &&
     movies.map((movie) => {
       return (
-        <Grid item xs={6} key={movie.id}>
+        <MovieItem item xs={6} key={movie.id}>
           <p>{movie.original_title}</p>
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.original_title}
           />
-        </Grid>
+          <Heart
+            hearted={favorites.includes(movie.id)}
+            onClick={(e) => {
+              if (favorites.includes(movie.id)) {
+                setFavorites(
+                  favorites.filter((favorite) => favorite !== movie.id)
+                );
+              } else {
+                setFavorites([...favorites, movie.id]);
+              }
+            }}
+          />
+        </MovieItem>
       );
     });
 
