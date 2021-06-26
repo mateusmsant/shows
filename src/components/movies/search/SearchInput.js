@@ -1,20 +1,22 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { useMovie } from "../../../context/movieContext";
+import { useShow } from "../../../context/showContext";
 
-export default function SearchInput() {
-  const { searchInput, setSearchInput } = useMovie();
-
-  const error = false;
+export default function SearchInput({ searchTypeIsMovie }) {
+  const { movieInput, setMovieInput } = useMovie();
+  const { showInput, setShowInput } = useShow();
 
   return (
     <TextField
-      error={error}
-      id={error ? "outlined-error" : ""}
-      label={error ? "Erro" : "Filme ou série"}
+      label={"Pesquise"}
       variant="outlined"
-      value={searchInput}
-      onChange={(e) => setSearchInput(e.target.value)}
+      value={searchTypeIsMovie ? movieInput : showInput}
+      onChange={
+        searchTypeIsMovie
+          ? (e) => setMovieInput(e.target.value)
+          : (e) => setShowInput(e.target.value)
+      }
     />
   );
 }
