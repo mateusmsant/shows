@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { useSearch } from "../../../context/searchContext";
+import { useSearch } from "../../context/searchContext";
 
 const useStyles = makeStyles({
   root: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StyledRadio(props) {
+function StyledRadio(props: any) {
   const classes = useStyles();
 
   return (

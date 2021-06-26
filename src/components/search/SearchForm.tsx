@@ -1,7 +1,7 @@
 import React from "react";
-import { useMovie } from "../../../context/movieContext";
-import { useShow } from "../../../context/showContext";
-import { useSearch } from "../../../context/searchContext";
+import { useMovie } from "../../context/movieContext";
+import { useShow } from "../../context/showContext";
+import { useSearch } from "../../context/searchContext";
 import SearchInput from "./SearchInput";
 import SearchButton from "./SearchButton";
 import SearchType from "./SearchType";
@@ -11,17 +11,17 @@ export default function Teste() {
   const { searchMovie, movieInput } = useMovie();
   const { searchShow, showInput } = useShow();
 
-  const handleMovieSubmit = (e) => {
+  const searchTypeIsMovie = searchType === "movie";
+
+  const handleMovieSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     searchMovie(movieInput);
   };
 
-  const handleShowSubmit = (e) => {
+  const handleShowSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     searchShow(showInput);
   };
-
-  const searchTypeIsMovie = searchType === "movie";
 
   return (
     <form
@@ -32,7 +32,7 @@ export default function Teste() {
           : (e) => handleShowSubmit(e)
       }
     >
-      <SearchInput searchTypeIsMovie={searchTypeIsMovie} />
+      <SearchInput searchTypeIsMovie={searchType === "movie"} />
       <SearchType />
       <SearchButton />
     </form>

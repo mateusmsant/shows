@@ -26,12 +26,20 @@ button {
   margin: 0.5rem 0 !important;
 }
 
-.container {
-  display: flex !important;
-  flex-direction: column;
-}
-
 .poster-img {
   width: 300px;
   height: 450px;
+  border-top-left-radius: 1% !important;
+  border-top-right-radius: 1% !important;
+}
+
+.item {
+  text-align: center;
+  margin: 1rem !important;
+}
+
+@media only screen and (max-width: 720px) {
+  .search {
+    width: 100%;
+  }
 }
