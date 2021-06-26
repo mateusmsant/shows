@@ -1,13 +1,15 @@
-import React from 'react'
-import Search from './Search'
-import MoviesList from './MoviesList'
+import React from "react";
+import Search from "./search/Search";
+import MoviesList from "./MoviesList";
+import { Container } from "@material-ui/core";
 
 export default function Movies() {
-
   return (
-    <div>
+    <>
       <Search />
-      <MoviesList />
-    </div>
-  )
+      <Container>
+        <MoviesList />
+      </Container>
+    </>
+  );
 }
