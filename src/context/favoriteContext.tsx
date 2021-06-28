@@ -9,12 +9,13 @@ import React, {
 import { useApi } from "./apiContext";
 
 interface FavoriteInterface {
-  favoritesId: Array<Number>;
-  setFavoritesId: Dispatch<SetStateAction<Array<Number>>>;
-  favoritesData: Array<Object>;
-  setFavoritesData: Dispatch<SetStateAction<Array<Object>>>;
+  favoritesId: Array<any>;
+  favoritesData: Array<any>;
+  setFavoritesId: Dispatch<SetStateAction<Array<any>>>;
+  setFavoritesData: Dispatch<SetStateAction<Array<any>>>;
   activeHeart: (id: number) => "true" | undefined;
-  handleHeartedClick: (id: number) => void;
+  handleHeartClick: (id: number) => void;
+  getDataFromFavoritesId: () => void;
 }
 
 interface PropsType {
@@ -24,32 +25,64 @@ interface PropsType {
 const FavoriteContext = createContext({} as FavoriteInterface);
 
 export default function FavoriteProvider(props: PropsType) {
-  const [favoritesId, setFavoritesId] = useState([] as Number[]);
+  const [favoritesId, setFavoritesId] = useState([] as Array<any>);
   const [favoritesData, setFavoritesData] = useState([] as Array<any>);
   const { tmdbApi } = useApi();
 
-  const isHearted = (id: any) => favoritesId.includes(id as never);
-  const activeHeart = (id: number) => (isHearted(id) ? "true" : undefined);
+  const isHearted = (id: any) =>
+    favoritesId.filter((favorite) => favorite.id === id);
+  const activeHeart = (id: number) =>
+    isHearted(id).length !== 0 ? "true" : undefined;
 
-  const handleHeartedClick = async (id: number) => {
-    if (isHearted(id)) {
-      setFavoritesId(favoritesId.filter((favorite) => favorite !== id));
+  const handleHeartClick = (data: any) => {
+    const { id } = data;
+
+    if (data.isMovie === "REMOVE_FAVORITE") {
+      setFavoritesId(favoritesId.filter((favorite) => favorite.id !== id));
       setFavoritesData(favoritesData.filter((favorite) => favorite.id !== id));
+    }
+
+    if (isHearted(id).length === 1) {
+      setFavoritesId(favoritesId.filter((favorite) => favorite.id !== id));
     } else {
-      setFavoritesId([...favoritesId, id]);
-      const response = await tmdbApi.get(`movie/${id}`);
-      setFavoritesData([...favoritesData, response.data]);
+      setFavoritesId([...favoritesId, data]);
+    }
+
+    getDataFromFavoritesId();
+  };
+
+  const fetchAndAddToState = async (data: any) => {
+    const existsInData = favoritesData.filter(
+      (favorite) => favorite.id === data.id
+    );
+
+    if (existsInData.length === 0) {
+      const response = await tmdbApi.get(
+        `/${data.isMovie ? "movie" : "tv"}/${data.id}`
+      );
+      if (response) {
+        setFavoritesData([...favoritesData, response.data]);
+      }
     }
   };
+
+  const getDataFromFavoritesId = () => {
+    favoritesId.map((favorite) => {
+      fetchAndAddToState(favorite);
+      return null;
+    });
+  };
+
   return (
     <FavoriteContext.Provider
       value={{
         favoritesId,
         setFavoritesId,
         activeHeart,
-        handleHeartedClick,
+        handleHeartClick,
         favoritesData,
         setFavoritesData,
+        getDataFromFavoritesId,
       }}
     >
       {props.children}

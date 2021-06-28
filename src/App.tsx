@@ -13,25 +13,27 @@ import Favorites from "./components/pages/Favorites";
 
 export default function App() {
   return (
-    <Router>
-      <ApiProvider>
-        <SearchProvider>
-          <FavoriteProvider>
-            <ShowProvider>
-              <MovieProvider>
-                <AnimatePresence>
-                  <Navbar />
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/about" component={About} />
-                    <Route exact path="/favorites" component={Favorites} />
-                  </Switch>
-                </AnimatePresence>
-              </MovieProvider>
-            </ShowProvider>
-          </FavoriteProvider>
-        </SearchProvider>
-      </ApiProvider>
-    </Router>
+    <AnimatePresence>
+      <Router>
+        <ApiProvider>
+          <SearchProvider>
+            <FavoriteProvider>
+              <ShowProvider>
+                <MovieProvider>
+                  <>
+                    <Navbar />
+                    <Switch>
+                      <Route exact path="/" component={Home} />
+                      <Route exact path="/about" component={About} />
+                      <Route exact path="/favorites" component={Favorites} />
+                    </Switch>
+                  </>
+                </MovieProvider>
+              </ShowProvider>
+            </FavoriteProvider>
+          </SearchProvider>
+        </ApiProvider>
+      </Router>
+    </AnimatePresence>
   );
 }

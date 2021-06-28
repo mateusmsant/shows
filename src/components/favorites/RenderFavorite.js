@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFavorite } from "../../context/favoriteContext";
 import { Grid } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
@@ -8,12 +8,25 @@ import { motion } from "framer-motion";
 import { fadeInAnimation } from "../animations";
 
 export default function RenderFavorite() {
-  const { favoritesData, activeHeart, handleHeartedClick } = useFavorite();
+  const {
+    favoritesData,
+    activeHeart,
+    handleHeartClick,
+    getDataFromFavoritesId,
+  } = useFavorite();
   const { variants, transition } = fadeInAnimation;
+
+  useEffect(() => {
+    getDataFromFavoritesId();
+  }, []);
+
+  if (favoritesData.length === 0) {
+    return <div>nao ha favoritos</div>;
+  }
 
   return (
     <>
-      {favoritesData &&
+      {favoritesData.length > 0 &&
         favoritesData.map((item) => {
           if (item.poster_path) {
             return (
@@ -45,7 +58,10 @@ export default function RenderFavorite() {
                         <Heart
                           hearted={activeHeart(item.id)}
                           onClick={() => {
-                            handleHeartedClick(item.id);
+                            handleHeartClick({
+                              isMovie: "REMOVE_FAVORITE",
+                              id: item.id,
+                            });
                           }}
                         />
                         <Rating

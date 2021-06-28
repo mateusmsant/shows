@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { fadeInAnimation } from "../animations";
 
 export default function RenderData() {
-  const { activeHeart, handleHeartedClick } = useFavorite();
+  const { activeHeart, handleHeartClick } = useFavorite();
   const { searchType } = useSearch();
   const { movies } = useMovie();
   const { shows } = useShow();
@@ -55,7 +55,10 @@ export default function RenderData() {
                         <Heart
                           hearted={activeHeart(item.id)}
                           onClick={() => {
-                            handleHeartedClick(item.id);
+                            handleHeartClick({
+                              isMovie: isSearchTypeMovie,
+                              id: item.id,
+                            });
                           }}
                         />
                         <Rating
