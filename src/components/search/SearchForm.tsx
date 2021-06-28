@@ -13,12 +13,12 @@ export default function Teste() {
 
   const searchTypeIsMovie = searchType === "movie";
 
-  const handleMovieSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleMovieSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     searchMovie(movieInput);
   };
 
-  const handleShowSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleShowSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     searchShow(showInput);
   };

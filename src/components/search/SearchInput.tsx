@@ -15,7 +15,7 @@ export default function SearchInput(props: { searchTypeIsMovie?: boolean }) {
 
   const handleInputChange = (e: {
     target: { value: React.SetStateAction<string> };
-  }) => {
+  }): void => {
     if (searchTypeIsMovie) {
       setMovieInput(e.target.value);
       debouncedCall(e.target.value);

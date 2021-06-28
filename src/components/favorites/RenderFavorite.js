@@ -3,28 +3,18 @@ import { useFavorite } from "../../context/favoriteContext";
 import { Grid } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
-import { useMovie } from "../../context/movieContext";
-import { useShow } from "../../context/showContext";
-import { useSearch } from "../../context/searchContext";
 import Heart from "react-animated-heart";
 import { motion } from "framer-motion";
 import { fadeInAnimation } from "../animations";
 
-export default function RenderData() {
-  const { activeHeart, handleHeartedClick } = useFavorite();
-  const { searchType } = useSearch();
-  const { movies } = useMovie();
-  const { shows } = useShow();
-
-  const isSearchTypeMovie = searchType === "movie";
-  const data = isSearchTypeMovie ? movies : shows;
-
+export default function RenderFavorite() {
+  const { favoritesData, activeHeart, handleHeartedClick } = useFavorite();
   const { variants, transition } = fadeInAnimation;
 
   return (
     <>
-      {data &&
-        data.map((item) => {
+      {favoritesData &&
+        favoritesData.map((item) => {
           if (item.poster_path) {
             return (
               <Grid item key={item.id} className="item">
