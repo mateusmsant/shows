@@ -6,7 +6,8 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { useApi } from "./apiContext";
+
+import { useRoot } from "./rootContext";
 
 interface FavoriteInterface {
   favoritesId: Array<any>;
@@ -27,27 +28,34 @@ const FavoriteContext = createContext({} as FavoriteInterface);
 export default function FavoriteProvider(props: PropsType) {
   const [favoritesId, setFavoritesId] = useState([] as Array<any>);
   const [favoritesData, setFavoritesData] = useState([] as Array<any>);
-  const { tmdbApi } = useApi();
+  const { tmdbApi } = useRoot();
 
   const isHearted = (id: any) =>
     favoritesId.filter((favorite) => favorite.id === id);
+
   const activeHeart = (id: number) =>
     isHearted(id).length !== 0 ? "true" : undefined;
 
-  const handleHeartClick = (data: any) => {
-    const { id } = data;
+  const removeFromState = (id: number) => {
+    setFavoritesId(favoritesId.filter((favorite) => favorite.id !== id));
+    setFavoritesData(favoritesData.filter((favorite) => favorite.id !== id));
+  };
 
-    if (data.isMovie === "REMOVE_FAVORITE") {
-      setFavoritesId(favoritesId.filter((favorite) => favorite.id !== id));
-      setFavoritesData(favoritesData.filter((favorite) => favorite.id !== id));
+  const handleHeartClick = (data: any) => {
+    const { id, isMovie } = data;
+
+    // This handles the click on the favorites list
+    if (isMovie === "REMOVE_FAVORITE") {
+      removeFromState(id);
     }
 
     if (isHearted(id).length === 1) {
-      setFavoritesId(favoritesId.filter((favorite) => favorite.id !== id));
+      removeFromState(id);
     } else {
       setFavoritesId([...favoritesId, data]);
     }
 
+    // After every click, update the data in favoritesData
     getDataFromFavoritesId();
   };
 

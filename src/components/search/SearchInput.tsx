@@ -18,10 +18,14 @@ export default function SearchInput(props: { searchTypeIsMovie?: boolean }) {
   }): void => {
     if (searchTypeIsMovie) {
       setMovieInput(e.target.value);
-      debouncedCall(e.target.value);
+      if (e.target.value) {
+        debouncedCall(e.target.value);
+      }
     } else {
       setShowInput(e.target.value);
-      debouncedCall(e.target.value);
+      if (e.target.value) {
+        debouncedCall(e.target.value);
+      }
     }
   };
 

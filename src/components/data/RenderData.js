@@ -6,20 +6,31 @@ import Rating from "@material-ui/lab/Rating";
 import { useMovie } from "../../context/movieContext";
 import { useShow } from "../../context/showContext";
 import { useSearch } from "../../context/searchContext";
+import { useRoot } from "../../context/rootContext";
 import Heart from "react-animated-heart";
 import { motion } from "framer-motion";
 import { fadeInAnimation } from "../animations";
+import spinner from "../res/spinner.svg";
 
 export default function RenderData() {
   const { activeHeart, handleHeartClick } = useFavorite();
   const { searchType } = useSearch();
   const { movies } = useMovie();
   const { shows } = useShow();
+  const { loading } = useRoot();
 
   const isSearchTypeMovie = searchType === "movie";
   const data = isSearchTypeMovie ? movies : shows;
 
   const { variants, transition } = fadeInAnimation;
+
+  if (loading) {
+    return (
+      <div className="spinner-wrapper">
+        <img src={spinner} alt="loading-spinner" className="spinner" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -35,7 +46,7 @@ export default function RenderData() {
                   variants={variants}
                   transition={transition}
                 >
-                  <Paper elevation={1}>
+                  <Paper elevation={1} className="paper">
                     <div>
                       <img
                         className="poster-img"

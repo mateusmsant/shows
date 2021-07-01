@@ -6,7 +6,7 @@ import React, {
   Dispatch,
 } from "react";
 import { ReactElement } from "react";
-import { useApi } from "./apiContext";
+import { useRoot } from "./rootContext";
 
 interface ShowInterface {
   shows: never[];
@@ -24,12 +24,16 @@ const ShowContext = createContext({} as ShowInterface);
 export default function ShowProvider(props: PropsType) {
   const [showInput, setShowInput] = useState("");
   const [shows, setShows] = useState([]);
+  const { setLoading } = useRoot();
 
-  const { tmdbApi } = useApi();
+  const { tmdbApi } = useRoot();
 
   const searchShow = async (input: string) => {
     const response = await tmdbApi.get(`search/tv?query=${input}`);
-    setShows(response.data.results);
+    if (response) {
+      setShows(response.data.results);
+    }
+    setLoading(false);
   };
 
   return (

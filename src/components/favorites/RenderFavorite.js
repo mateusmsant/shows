@@ -6,6 +6,7 @@ import Rating from "@material-ui/lab/Rating";
 import Heart from "react-animated-heart";
 import { motion } from "framer-motion";
 import { fadeInAnimation } from "../animations";
+import NotFound from "../layout/NotFound";
 
 export default function RenderFavorite() {
   const {
@@ -18,10 +19,13 @@ export default function RenderFavorite() {
 
   useEffect(() => {
     getDataFromFavoritesId();
+    // eslint-disable-next-line
   }, []);
 
+  console.log(favoritesData);
+
   if (favoritesData.length === 0) {
-    return <div>nao ha favoritos</div>;
+    return <NotFound message="Não há filmes ou séries favoritas" />;
   }
 
   return (
@@ -38,7 +42,7 @@ export default function RenderFavorite() {
                   variants={variants}
                   transition={transition}
                 >
-                  <Paper elevation={1}>
+                  <Paper elevation={1} className="paper">
                     <div>
                       <img
                         className="poster-img"

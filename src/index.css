@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins";
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -8,6 +15,8 @@ body {
   display: flex !important;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #0d1833;
+  color: #ced3d6;
 }
 
 code {
@@ -18,8 +27,11 @@ code {
 .search {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 75%;
   margin: 2.5rem auto;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem !important;
 }
 
 button {
@@ -29,8 +41,8 @@ button {
 .poster-img {
   width: 300px;
   height: 450px;
-  border-top-left-radius: 1% !important;
-  border-top-right-radius: 1% !important;
+  border-top-left-radius: 3% !important;
+  border-top-right-radius: 3% !important;
 }
 
 .item {
@@ -38,8 +50,64 @@ button {
   margin: 1rem !important;
 }
 
+.paper {
+  border-top-left-radius: 3% !important;
+  border-top-right-radius: 3% !important;
+  background-color: #0d1833;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #ced3d6 !important;
+  margin: 0.3rem;
+  font-weight: 700;
+}
+
+.nav-link:hover {
+  color: #f231a5 !important;
+}
+
+.radio {
+  color: #7c8ca6;
+}
+
+.main-nav-active {
+  color: #f231a5 !important;
+}
+
+.no-fav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 80vh;
+}
+
+.empty {
+  margin-top: 3rem !important;
+  margin: 0 auto;
+  width: 60%;
+}
+
+.text-empty {
+  font-size: 1.5rem;
+}
+
+.spinner-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.spinner {
+  width: 10%;
+}
+
 @media only screen and (max-width: 720px) {
   .search {
     width: 100%;
+  }
+  .empty {
+    width: 80%;
   }
 }

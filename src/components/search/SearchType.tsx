@@ -75,8 +75,18 @@ export default function CustomizedRadios() {
       value={searchType}
       onChange={(e) => setSearchType(e.target.value)}
     >
-      <FormControlLabel value="movie" control={<StyledRadio />} label="Filme" />
-      <FormControlLabel value="show" control={<StyledRadio />} label="Série" />
+      <FormControlLabel
+        className="radio"
+        value="movie"
+        control={<StyledRadio />}
+        label="Filme"
+      />
+      <FormControlLabel
+        className="radio"
+        value="show"
+        control={<StyledRadio />}
+        label="Série"
+      />
     </RadioGroup>
   );
 }

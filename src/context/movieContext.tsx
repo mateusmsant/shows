@@ -6,7 +6,7 @@ import React, {
   SetStateAction,
   Dispatch,
 } from "react";
-import { useApi } from "./apiContext";
+import { useRoot } from "./rootContext";
 
 interface MovieInterface {
   movies: never[];
@@ -24,11 +24,15 @@ const MovieContext = createContext({} as MovieInterface);
 export default function MovieProvider(props: PropsType) {
   const [movies, setMovies] = useState([]);
   const [movieInput, setMovieInput] = useState("");
-  const { tmdbApi } = useApi();
+
+  const { tmdbApi, setLoading } = useRoot();
 
   const searchMovie = async (input: string): Promise<void> => {
     const response = await tmdbApi.get(`search/movie?query=${input}`);
-    setMovies(response.data.results);
+    if (response) {
+      setMovies(response.data.results);
+    }
+    setLoading(false);
   };
 
   return (

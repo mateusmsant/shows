@@ -1,5 +1,6 @@
 import React from "react";
+import { Container } from "@material-ui/core";
 
-export default function About() {
-  return <div>About</div>;
+export default function About(props: any) {
+  return <Container>oi</Container>;
 }
