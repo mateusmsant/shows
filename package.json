@@ -1,5 +1,6 @@
 {
-  "name": "movie",
+  "homepage": "https://mateusmsant.github.io/shows",
+  "name": "shows",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
