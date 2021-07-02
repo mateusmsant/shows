@@ -34,7 +34,7 @@ export default function Teste() {
     >
       <SearchInput searchTypeIsMovie={searchType === "movie"} />
       <SearchType />
-      <SearchButton />
+      {/* <SearchButton /> */}
     </form>
   );
 }

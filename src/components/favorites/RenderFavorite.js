@@ -15,14 +15,13 @@ export default function RenderFavorite() {
     handleHeartClick,
     getDataFromFavoritesId,
   } = useFavorite();
+
   const { variants, transition } = fadeInAnimation;
 
   useEffect(() => {
     getDataFromFavoritesId();
     // eslint-disable-next-line
   }, []);
-
-  console.log(favoritesData);
 
   if (favoritesData.length === 0) {
     return <NotFound message="Não há filmes ou séries favoritas" />;

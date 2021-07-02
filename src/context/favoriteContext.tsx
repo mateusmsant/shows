@@ -65,9 +65,8 @@ export default function FavoriteProvider(props: PropsType) {
     );
 
     if (existsInData.length === 0) {
-      const response = await tmdbApi.get(
-        `/${data.isMovie ? "movie" : "tv"}/${data.id}`
-      );
+      const url = `/${data.isMovie ? "movie" : "tv"}/${data.id}`;
+      const response = await tmdbApi.get(url);
       if (response) {
         setFavoritesData([...favoritesData, response.data]);
       }
